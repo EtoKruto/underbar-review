@@ -11,23 +11,23 @@
   };
 
   /**
-   * COLLECTIONS
-   * ===========
-   *
-   * In this section, we'll have a look at functions that operate on collections
-   * of values; in JavaScript, a 'collection' is something that can contain a
-   * number of values--either an array or an object.
-   *
-   *
-   * IMPORTANT NOTE!
-   * ===========
-   *
-   * The .first function is implemented for you, to help guide you toward success
-   * in your work on the following functions. Whenever you see a portion of the
-   * assignment pre-completed, be sure to read and understand it fully before
-   * you proceed. Skipping this step will lead to considerably more difficulty
-   * implementing the sections you are responsible for.
-   */
+  * COLLECTIONS
+  * ===========
+  *
+  * In this section, we'll have a look at functions that operate on collections
+  * of values; in JavaScript, a 'collection' is something that can contain a
+  * number of values--either an array or an object.
+  *
+  *
+  * IMPORTANT NOTE!
+  * ===========
+  *
+  * The .first function is implemented for you, to help guide you toward success
+  * in your work on the following functions. Whenever you see a portion of the
+  * assignment pre-completed, be sure to read and understand it fully before
+  * you proceed. Skipping this step will lead to considerably more difficulty
+  * implementing the sections you are responsible for.
+  */
 
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
@@ -81,17 +81,67 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    let results = [];
+
+    _.each(collection, function(element) {
+      if (test(element)) {
+        results.push(element);
+      }
+    });
+    return results;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    // let results = [];
+    // let oppositeTest = !test;
+
+    return _.filter(collection, function(element) {
+      if (!test(element)) {
+        return element;
+      }
+    });
+
+
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array, isSorted, iterator) {
+  _.uniq = function(collection, isSorted, iterator) {
+    // collection = [1, 2, 3];
+    let uniqArray = [];
+    let results = [];
+
+    if (!iterator) {
+      _.each(collection, function(element) {
+        if (results.indexOf(element) === -1) {
+          results.push(element);
+        }
+      });
+    } else {
+      //iteratate over the collection
+      _.each(collection, function(element) {
+        //check if the this result has been attained before (if unique), if not add it to the 'unique' array
+
+        if (_.indexOf(uniqArray, iterator(element)) === -1) {
+          //use iterator on each element and attain the result from the expression (store it in a sep array)
+
+          uniqArray.push(iterator(element));
+          results.push(element);
+        }
+        //element
+        //1: uniqueArray = [false, true]
+        //1: results = [1, 2]
+
+        //[12.1, 12.8, 12.4, 14]
+      });
+    }
+
+
+    return results;
   };
+
 
 
   // Return the results of applying an iterator to each element.
@@ -99,13 +149,16 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+
+
+
   };
 
   /*
-   * TIP: map is really handy when you want to transform an array of
-   * values into a new array of values. _.pluck() is solved for you
-   * as an example of this.
-   */
+  * TIP: map is really handy when you want to transform an array of
+  * values into a new array of values. _.pluck() is solved for you
+  * as an example of this.
+  */
 
   // Takes an array of objects and returns and array of the values of
   // a certain property in it. E.g. take an array of people and return
@@ -168,11 +221,11 @@
 
 
   /**
-   * OBJECTS
-   * =======
-   *
-   * In this section, we'll look at a couple of helpers for merging objects.
-   */
+  * OBJECTS
+  * =======
+  *
+  * In this section, we'll look at a couple of helpers for merging objects.
+  */
 
   // Extend a given object with all the properties of the passed in
   // object(s).
@@ -195,12 +248,12 @@
 
 
   /**
-   * FUNCTIONS
-   * =========
-   *
-   * Now we're getting into function decorators, which take in any function
-   * and return out a new version of the function that works somewhat differently
-   */
+  * FUNCTIONS
+  * =========
+  *
+  * Now we're getting into function decorators, which take in any function
+  * and return out a new version of the function that works somewhat differently
+  */
 
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
@@ -247,9 +300,9 @@
 
 
   /**
-   * ADVANCED COLLECTION OPERATIONS
-   * ==============================
-   */
+  * ADVANCED COLLECTION OPERATIONS
+  * ==============================
+  */
 
   // Randomizes the order of an array's contents.
   //
@@ -261,12 +314,12 @@
 
 
   /**
-   * ADVANCED
-   * =================
-   *
-   * Note: This is the end of the pre-course curriculum. Feel free to continue,
-   * but nothing beyond here is required.
-   */
+  * ADVANCED
+  * =================
+  *
+  * Note: This is the end of the pre-course curriculum. Feel free to continue,
+  * but nothing beyond here is required.
+  */
 
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
