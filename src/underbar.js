@@ -137,8 +137,6 @@
         //[12.1, 12.8, 12.4, 14]
       });
     }
-
-
     return results;
   };
 
@@ -150,9 +148,35 @@
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
 
+    //I: array and iterator function
+    //O: new array
+    //C: no constraints
+    //E: no edge cases
 
+    //map function takes in a collection (in this case an array) and an iterator function and
+    //iterates through each element and applies the iterator function onto each element while
+    //maintaning a result in a results array which is returned at the end of the execution
 
+    //create a new empty array to store result
+
+    //begin the iterate function using the collection array to apply method to each element
+
+    //call iterator on to each element and push the result into the result array created earlier
+
+    // return the result array
+    let mapArray = [];
+
+    _.each(collection, function(el) {
+      mapArray.push(iterator(el));
+    });
+
+    return mapArray;
   };
+
+  console.log(_.map([1, 2, 3], function(x) {
+    return x + 2;
+  }));
+
 
   /*
   * TIP: map is really handy when you want to transform an array of
@@ -192,8 +216,41 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
+
   _.reduce = function(collection, iterator, accumulator) {
+    //I: Array/object, function and accumulator(optional)
+    //O: single value
+    //C: no constraints
+    //E: no accumulator is optional
+
+    //create a return value to be stored as a accumulator
+    // set the accumulator
+    // use first el as accumlator if none given
+
+    //iterator through collections
+
+    _.each(collection, function(element, index) {
+      if (accumulator === undefined && index === 0) {
+        accumulator = element;
+      } else {
+        accumulator = iterator(accumulator, element);
+      }
+    });
+
+    return accumulator;
+
+    // accumlate/returning the accumlator by using the iterator function on each element
+
+    //first iteration: 1
+    //total + number
+    //acc: 0
+
   };
+  // var numbers = [1, 2, 3];
+  // var sum = _.reduce(numbers, function(total, number) {
+  //   return total + number;
+  // }, 0); // should be 6
+  // console.log(sum);
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
@@ -211,12 +268,30 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+
+    iterator = iterator || _.identity;
+    return _.reduce(collection, function(trueSoFar, item) {
+      if (!trueSoFar) {
+        return false;
+      } else {
+        return !!iterator(item);
+      }
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator = iterator || _.identity;
+
+    return _.reduce(collection, function(falseSoFar, item) {
+      if (falseSoFar) {
+        return true;
+      } else {
+        return !!iterator(item);
+      }
+    }, false);
   };
 
 
